@@ -41,6 +41,7 @@ const SocialButton = ({ children, label, href }) => {
 };
 
 export default function SmallWithSocial() {
+  let i = 0;
   return (
     <Box
       bg={useColorModeValue("gray.50", "gray.900")}
@@ -68,7 +69,7 @@ export default function SmallWithSocial() {
             </Heading>
           </Box>
           <Accordion>
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -83,7 +84,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -97,7 +98,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -115,7 +116,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -129,7 +130,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -151,7 +152,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -169,7 +170,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -185,7 +186,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -201,7 +202,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -215,7 +216,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
@@ -234,7 +235,7 @@ export default function SmallWithSocial() {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            <AccordionItem id={`accItem-id-${++i}`}>
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
