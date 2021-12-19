@@ -45,7 +45,7 @@ export default function SignupCard() {
   });
   const [errors, setErrors] = useState({
     name: "",
-    pricepassword: "",
+    email: "",
     password: "",
   });
   const router = useRouter();
