@@ -58,6 +58,7 @@ export default function SmallCentered() {
           <Link href={"/how-it-works"}>How it works</Link>
           <Link href={"/faq"}>FAQ</Link>
           <Link href={"/contact"}>Contact</Link>
+          <Link href={"/privacy-policy"}>Privacy Policy</Link>
         </Stack>
       </Container>
 
