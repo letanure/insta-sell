@@ -4,12 +4,14 @@ import styles from "../styles/Home.module.css";
 import { Box } from "@chakra-ui/react";
 
 import Sidebar from "../components/Sidebar";
+import Settings from "../components/Settings";
 
 export default function Home() {
   return (
     <Box width="100%">
-      {/* <Header /> */}
-      <Sidebar>Settings</Sidebar>
+      <Sidebar>
+        <Settings />
+      </Sidebar>
     </Box>
   );
 }
