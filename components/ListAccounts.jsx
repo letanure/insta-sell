@@ -66,7 +66,6 @@ export default function SignupCard() {
                     <Td>No</Td>
                     <Td>
                       <Button
-                        variantColor="green"
                         variant="outline"
                         size="sm"
                         leftIcon={<ViewIcon />}
