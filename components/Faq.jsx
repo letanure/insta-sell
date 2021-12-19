@@ -101,6 +101,24 @@ export default function SmallWithSocial() {
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
+                    My account was hacked and is on sale here. What should I do?
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                The service is not responsible for the security of your account.
+                The purpose of the service is to make it easier both sides to
+                make a safe deal where both parties can trust in our services
+                and finish the deal. The buyer is sure they will get the bill
+                back and the seller is sure they will be paid
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
                     Can I sell/buy annonymously?
                   </Box>
                   <AccordionIcon />
