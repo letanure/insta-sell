@@ -38,6 +38,7 @@ export default function SignupCard() {
             boxShadow={"lg"}
             p={4}
             w={"100%"}
+            overflowX={"scroll"}
           >
             <Stack spacing={4}>
               <Table variant="simple">
@@ -78,21 +79,21 @@ export default function SignupCard() {
                 </Tbody>
               </Table>
             </Stack>
-            <Stack spacing={4}>
-              <Button
-                colorScheme={"green"}
-                bg={"green.400"}
-                rounded={"full"}
-                w={"20%"}
-                px={6}
-                _hover={{
-                  bg: "green.500",
-                }}
-              >
-                Add new account
-              </Button>
-            </Stack>
           </Box>
+          <Stack spacing={4}>
+            <Button
+              colorScheme={"green"}
+              bg={"green.400"}
+              rounded={"full"}
+              w={"50%"}
+              px={6}
+              _hover={{
+                bg: "green.500",
+              }}
+            >
+              Add new account
+            </Button>
+          </Stack>
         </Stack>
       </SimpleGrid>
     </Box>
