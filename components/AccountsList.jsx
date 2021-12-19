@@ -34,7 +34,6 @@ export default function SignupCard() {
     const querySnapshot = await getDocs(collection(db, "accounts"));
     const accountsDb = [];
     querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
       accountsDb.push({
         id: doc.id,
         ...doc.data(),
