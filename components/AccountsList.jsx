@@ -9,7 +9,7 @@ import {
   Tbody,
   Td,
   Stack,
-  Tfoot,
+  Tag,
   Heading,
   Text,
   useColorModeValue,
@@ -17,11 +17,31 @@ import {
   Button,
   Link,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { db } from "../services/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
+  const [accounts, setAccounts] = useState([]);
+
+  useEffect(() => {
+    getAccounts();
+  }, []);
+
+  const getAccounts = async () => {
+    const querySnapshot = await getDocs(collection(db, "accounts"));
+    const accountsDb = [];
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+      accountsDb.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    setAccounts(accountsDb);
+  };
 
   return (
     <Box maxW="12xl" mx={"auto"} pt={5} px={{ base: 2, sm: 22, md: 17 }}>
@@ -46,36 +66,82 @@ export default function SignupCard() {
                 <Thead>
                   <Tr>
                     <Th>Account</Th>
-                    <Th>Tranfered</Th>
                     <Th>Price</Th>
-                    <Th>Paid by the buyer</Th>
+                    <Th>Tranfered</Th>
+                    <Th>Paid by the buyer?</Th>
+                    <Th>Seller paid?</Th>
                     <Th>Actions</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td>
-                      <Link
-                        href="https://www.instagram.com/bolatat2/"
-                        target={"_blank"}
-                      >
-                        @bolata2
-                      </Link>
-                    </Td>
-                    <Td>No</Td>
-                    <Td isNumeric>200</Td>
-                    <Td>No</Td>
-                    <Td>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        leftIcon={<ViewIcon />}
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        View
-                      </Button>
-                    </Td>
-                  </Tr>
+                  {accounts.length === 0 && (
+                    <Tr>
+                      <Td colSpan={5}>
+                        <Text>No accounts found</Text>
+                      </Td>
+                    </Tr>
+                  )}
+                  {accounts.map((account, index) => (
+                    <Tr key={index}>
+                      <Td>
+                        <Link
+                          href={`https://www.instagram.com/${account.user}`}
+                          target={"_blank"}
+                        >
+                          {account.user}
+                        </Link>
+                      </Td>
+                      <Td isNumeric>$ {account.price}</Td>
+                      <Td>
+                        {account.sellerTransferred ? (
+                          "Yes"
+                        ) : (
+                          <Tag colorScheme="yellow" size="sm" mb={1}>
+                            Awaiting login confirmation
+                          </Tag>
+                        )}
+                        {account.sellerEmailConfirmed ? (
+                          "Yes"
+                        ) : (
+                          <Tag colorScheme="yellow" size="sm">
+                            Awaiting email transfer
+                          </Tag>
+                        )}
+                      </Td>
+                      <Td>
+                        {account.buyerPaid ? (
+                          <Tag colorScheme="green" size="sm" mb={1}>
+                            Yes
+                          </Tag>
+                        ) : (
+                          <Tag colorScheme="red" size="sm" mb={1}>
+                            No
+                          </Tag>
+                        )}
+                      </Td>
+                      <Td>
+                        {account.sellerPaid ? (
+                          <Tag colorScheme="green" size="sm" mb={1}>
+                            Yes
+                          </Tag>
+                        ) : (
+                          <Tag colorScheme="red" size="sm" mb={1}>
+                            No
+                          </Tag>
+                        )}
+                      </Td>
+                      <Td>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          leftIcon={<ViewIcon />}
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          View
+                        </Button>
+                      </Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </Stack>

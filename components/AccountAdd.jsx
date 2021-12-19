@@ -26,6 +26,7 @@ import EmailChangeInstructionsModal from "./EmailChangeInstructionsModal";
 import Joi from "joi";
 import { db } from "../services/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 const schema = Joi.object({
   user: Joi.string().alphanum().min(3).max(30).required(),
@@ -38,14 +39,23 @@ const schema = Joi.object({
     .required(),
   price: Joi.number().min(1).max(100000000).required(),
   password: Joi.string().min(6).required(),
+  sellerTransferred: Joi.any(),
+  sellerEmailConfirmed: Joi.any(),
+  buyerPaid: Joi.any(),
+  sellerPaid: Joi.any(),
 });
 
 export default function SignupCard() {
+  const router = useRouter();
   const [data, setData] = useState({
     user: "",
     password: "",
     price: 50,
     emailBuyer: "",
+    sellerTransferred: false,
+    sellerEmailConfirmed: false,
+    buyerPaid: false,
+    sellerPaid: false,
   });
 
   const [errors, setErrors] = useState({
@@ -94,6 +104,7 @@ export default function SignupCard() {
 
   const handleSubmit = () => {
     const { error, value } = schema.validate(data);
+    console.log(error, errors);
     if (error) {
       const listErrors = {};
       for (let key in data) {
@@ -103,6 +114,7 @@ export default function SignupCard() {
       return;
     } else {
       saveToDb(data);
+      router.push("/accounts");
     }
   };
   const handleChange = async (key, value) => {
