@@ -20,15 +20,23 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+
+import EmailChangeInstructionsModal from "./EmailChangeInstructionsModal";
 
 export default function SignupCard() {
-  const [price, setPrice] = useState(100);
+  const [data, setData] = useState({
+    user: "",
+    password: "",
+    price: 100,
+    emailBuyer: "",
+  });
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleChange = (v) => {
-    setPrice(v);
+  const handleChange = (key, value) => {
+    console.log(key, value);
+    setData((prevdata) => ({
+      ...prevdata,
+      [key]: value,
+    }));
   };
 
   return (
@@ -49,16 +57,26 @@ export default function SignupCard() {
             overflowX={"scroll"}
           >
             <FormControl isRequired marginBottom={4}>
-              <FormLabel htmlFor="email">User @</FormLabel>
-              <Input id="email" type="email" />
+              <FormLabel htmlFor="user">User @</FormLabel>
+              <Input
+                id="user"
+                type="user"
+                value={data.user}
+                onChange={(e) => handleChange("user", e.target.value)}
+              />
               <FormHelperText>
                 Type just the @ handler (ex: "elonrmuskk")
               </FormHelperText>
             </FormControl>
 
             <FormControl isRequired marginBottom={4}>
-              <FormLabel htmlFor="email">Password</FormLabel>
-              <Input id="email" type="email" />
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Input
+                id="password"
+                type="text"
+                value={data.password}
+                onChange={(e) => handleChange("password", e.target.value)}
+              />
               <FormHelperText>We'll never share your email.</FormHelperText>
             </FormControl>
 
@@ -67,8 +85,8 @@ export default function SignupCard() {
               <NumberInput
                 max={10000}
                 min={1}
-                value={price}
-                onChange={handleChange}
+                value={data.price}
+                onChange={(value) => handleChange("price", value)}
               >
                 <NumberInputField id="price" />
                 <NumberInputStepper>
@@ -78,14 +96,14 @@ export default function SignupCard() {
               </NumberInput>
               <FormHelperText>
                 The buyer will pay{" "}
-                {parseFloat(price) * 0.1 < 25
-                  ? (parseFloat(price) + 25).toFixed(2)
-                  : (parseFloat(price) * 1.1).toFixed(2)}{" "}
+                {parseFloat(data.price) * 0.1 < 25
+                  ? (parseFloat(data.price) + 25).toFixed(2)
+                  : (parseFloat(data.price) * 1.1).toFixed(2)}{" "}
                 USD (
-                {parseFloat(price) * 0.1 < 25
-                  ? `$${parseFloat(price).toFixed(2)} + $25.00`
-                  : `$${(parseFloat(price) * 1).toFixed(2)} + $${(
-                      parseFloat(price) * 0.1
+                {parseFloat(data.price) * 0.1 < 25
+                  ? `$${parseFloat(data.price).toFixed(2)} + $25.00`
+                  : `$${(parseFloat(data.price) * 1).toFixed(2)} + $${(
+                      parseFloat(data.price) * 0.1
                     ).toFixed(2)}`}
                 )
               </FormHelperText>
@@ -93,7 +111,11 @@ export default function SignupCard() {
 
             <FormControl isRequired marginBottom={4}>
               <FormLabel htmlFor="emailBuyer">Email of the buyer</FormLabel>
-              <Input id="emailBuyer" type="emailBuyer" />
+              <Input
+                id="emailBuyer"
+                type="emailBuyer"
+                onChange={(e) => handleChange("emailBuyer", e.target.value)}
+              />
               <FormHelperText>
                 We will send a notification to the buyer's email with the
                 payment link.
@@ -104,9 +126,10 @@ export default function SignupCard() {
               Save
             </Button>
 
-            <Text fontSize="lg" marginTop={5}>
+            <Text fontSize="lg" marginTop={5} marginBottom={5}>
               Dont forget to confirm the email change on instagram
             </Text>
+            <EmailChangeInstructionsModal />
           </Box>
         </Stack>
       </SimpleGrid>
