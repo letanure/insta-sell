@@ -18,3 +18,11 @@ export default function Home() {
     </Box>
   );
 }
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      protected: true,
+    },
+  };
+}
