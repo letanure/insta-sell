@@ -95,7 +95,11 @@ export default function SignupCard() {
   const handleSubmit = () => {
     const { error, value } = schema.validate(data);
     if (error) {
-      console.log(error);
+      const listErrors = {};
+      for (let key in data) {
+        listErrors[key] = validate(key, data[key]);
+      }
+      setErrors(listErrors);
       return;
     } else {
       saveToDb(data);
@@ -153,7 +157,9 @@ export default function SignupCard() {
               <FormHelperText color={"red.400"}>
                 {errors.password ? errors.password : ""}
               </FormHelperText>
-              <FormHelperText>We'll never share your email.</FormHelperText>
+              <FormHelperText>
+                The passwords are encrypted and not visible to our team
+              </FormHelperText>
             </FormControl>
 
             <FormControl isRequired marginBottom={4}>
