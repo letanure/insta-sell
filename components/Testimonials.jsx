@@ -95,7 +95,7 @@ export default function WithSpeechBubbles() {
             <TestimonialContent>
               <TestimonialHeading>Quick and easy</TestimonialHeading>
               <TestimonialText>
-                It was a great experience selling my IG page on this website. I
+                ”It was a great experience selling my IG page on this website. I
                 received my payment on time. Thank you for your service, I wish
                 you more success!” -
               </TestimonialText>
@@ -111,7 +111,7 @@ export default function WithSpeechBubbles() {
             <TestimonialContent>
               <TestimonialHeading>Secure & anonymous</TestimonialHeading>
               <TestimonialText>
-                They helped me to get my money with western union. Im gowring
+                ”They helped me to get my money with western union. Im growing
                 more Instagram accounts to sell here. Thanks!”
               </TestimonialText>
             </TestimonialContent>
@@ -126,7 +126,7 @@ export default function WithSpeechBubbles() {
             <TestimonialContent>
               <TestimonialHeading>Quick payment</TestimonialHeading>
               <TestimonialText>
-                They helped me to sell my page in 1 weeks. After the payment I
+                ”They helped me to sell my page in 1 week. After the payment I
                 got my money in one day over PayPal”
               </TestimonialText>
             </TestimonialContent>
