@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+CSR_certificate.key
+CSR_private_key.key
+CSR_request.csr
