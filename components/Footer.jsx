@@ -2,12 +2,15 @@ import {
   Box,
   chakra,
   Container,
+  Link,
   Stack,
   Text,
   useColorModeValue,
   VisuallyHidden,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { ReactNode } from "react";
 
 const SocialButton = ({ children, label, href }) => {
@@ -34,7 +37,7 @@ const SocialButton = ({ children, label, href }) => {
   );
 };
 
-export default function SmallWithSocial() {
+export default function SmallCentered() {
   return (
     <Box
       bg={useColorModeValue("gray.50", "gray.900")}
@@ -44,27 +47,59 @@ export default function SmallWithSocial() {
         as={Stack}
         maxW={"6xl"}
         py={4}
-        direction={{ base: "column", md: "row" }}
         spacing={4}
-        justify={{ base: "center", md: "space-between" }}
-        align={{ base: "center", md: "center" }}
+        justify={"center"}
+        align={"center"}
       >
-        <Text>© 2020 Chakra Templates. All rights reserved</Text>
+        <Text
+          textAlign={useBreakpointValue({ base: "center", md: "left" })}
+          fontFamily={"heading"}
+          color={useColorModeValue("green.600", "white")}
+        >
+          <RiMoneyDollarCircleLine size={50} />
+        </Text>
+        {/* <Logo /> */}
         <Stack direction={"row"} spacing={6}>
-          <SocialButton
-            label={"Twitter"}
-            href={"https://twitter.com/insta_sell_shop"}
-          >
-            <FaTwitter />
-          </SocialButton>
-          <SocialButton
-            label={"Instagram"}
-            href={"https://www.instagram.com/insta_sell_shop/"}
-          >
-            <FaInstagram />
-          </SocialButton>
+          <Link href={"/"}>Home</Link>
+          {/* <Link href={"#"}>About</Link> */}
+          {/* <Link href={"#"}>Blog</Link> */}
+          <Link href={"/how-it-works"}>How it works</Link>
+          <Link href={"/faq"}>FAQ</Link>
+          <Link href={"/contact"}>Contact</Link>
         </Stack>
       </Container>
+
+      <Box
+        borderTopWidth={1}
+        borderStyle={"solid"}
+        borderColor={useColorModeValue("gray.200", "gray.700")}
+      >
+        <Container
+          as={Stack}
+          maxW={"6xl"}
+          py={4}
+          direction={{ base: "column", md: "row" }}
+          spacing={4}
+          justify={{ base: "center", md: "space-between" }}
+          align={{ base: "center", md: "center" }}
+        >
+          <Text>© 2021 InstaSellShop. All rights reserved</Text>
+          <Stack direction={"row"} spacing={6}>
+            <SocialButton
+              label={"Twitter"}
+              href={"https:twitter.com/insta_sell_shop"}
+            >
+              <FaTwitter />
+            </SocialButton>
+            <SocialButton
+              label={"Instagram"}
+              href={"https:www.instagram.com/insta_sell_shop/"}
+            >
+              <FaInstagram />
+            </SocialButton>
+          </Stack>
+        </Container>
+      </Box>
     </Box>
   );
 }
