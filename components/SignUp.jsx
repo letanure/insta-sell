@@ -24,7 +24,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const schema = Joi.object({
-  name: Joi.string().alphanum().min(3).max(30).required(),
+  name: Joi.string().min(3).max(30).required(),
   email: Joi.string()
     .email({
       tlds: {
@@ -73,6 +73,7 @@ export default function SignupCard() {
       setErrorGeneral("");
       router.push("/dashboard");
     } catch (err) {
+      console.log(err);
       if (err.code === "auth/email-already-in-use") {
         setErrorGeneral("Email already in use");
       }
@@ -105,6 +106,7 @@ export default function SignupCard() {
 
   const handleSubmit = () => {
     const { error, value } = schema.validate(data);
+    console.log(error);
     if (error) {
       const listErrors = {};
       for (let key in data) {

@@ -29,7 +29,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 
 const schema = Joi.object({
-  user: Joi.string().alphanum().min(3).max(30).required(),
+  user: Joi.string().min(3).max(30).required(),
   emailBuyer: Joi.string()
     .email({
       tlds: {
