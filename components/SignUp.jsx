@@ -16,10 +16,15 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
+  const handleSubmit = (e) => {
+    router.push("/dashboard");
+  };
   return (
     <Flex
       minH={"100vh"}
@@ -83,6 +88,7 @@ export default function SignupCard() {
                 _hover={{
                   bg: "green.500",
                 }}
+                onClick={handleSubmit}
               >
                 Sign up
               </Button>

@@ -12,8 +12,14 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 export default function SimpleCard() {
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    router.push("/dashboard");
+  };
   return (
     <Flex
       minH={"86vh"}
@@ -61,6 +67,7 @@ export default function SimpleCard() {
                 _hover={{
                   bg: "green.500",
                 }}
+                onClick={handleSubmit}
               >
                 Sign in
               </Button>
