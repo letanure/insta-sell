@@ -9,8 +9,6 @@ import {
   Icon,
   Link,
   Popover,
-  PopoverTrigger,
-  PopoverContent,
   Container,
   useColorModeValue,
   useBreakpointValue,
@@ -22,7 +20,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import Logo from "./Logo";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -62,7 +60,7 @@ export default function WithSubnavigation() {
               color={useColorModeValue("green.600", "white")}
             >
               {" "}
-              <RiMoneyDollarCircleLine size={24} />
+              <Logo />
               {/* <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
               <Text color={"green.600"} ml={2}>
                 <RiMoneyDollarCircleLine size={24} />
