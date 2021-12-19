@@ -1,12 +1,8 @@
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Head from "next/head";
 import {
-  Lorem,
   ModalHeader,
   ModalFooter,
   Button,
@@ -18,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import EmailChangeInstructions from "./EmailChangeInstructions";
 import { useDisclosure } from "@chakra-ui/react";
-import Link from "next/link";
 
 export default function BasicUsage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
