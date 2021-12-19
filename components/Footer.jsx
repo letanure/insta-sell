@@ -28,6 +28,7 @@ const SocialButton = ({ children, label, href }) => {
       alignItems={"center"}
       justifyContent={"center"}
       transition={"background 0.3s ease"}
+      target={"_blank"}
       _hover={{
         bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
       }}
@@ -84,13 +85,13 @@ export default function SmallCentered() {
           <Stack direction={"row"} spacing={6}>
             <SocialButton
               label={"Twitter"}
-              href={"https:twitter.com/insta_sell_shop"}
+              href={"https://twitter.com/insta_sell_shop"}
             >
               <FaTwitter />
             </SocialButton>
             <SocialButton
               label={"Instagram"}
-              href={"https:www.instagram.com/insta_sell_shop/"}
+              href={"https://www.instagram.com/insta_sell_shop/"}
             >
               <FaInstagram />
             </SocialButton>
