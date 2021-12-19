@@ -20,13 +20,25 @@ import {
   Input,
   FormHelperText,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import EmailChangeInstructionsModal from "./EmailChangeInstructionsModal";
+import Joi from "joi";
+import { db } from "../services/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
-const validateEmail = (email) => {
-  return /^\S+@\S+\.\S+$/.test(email);
-};
+const schema = Joi.object({
+  user: Joi.string().alphanum().min(3).max(30).required(),
+  emailBuyer: Joi.string()
+    .email({
+      tlds: {
+        allow: false,
+      },
+    })
+    .required(),
+  price: Joi.number().min(1).max(100000000).required(),
+  password: Joi.string().min(6).required(),
+});
 
 export default function SignupCard() {
   const [data, setData] = useState({
@@ -35,12 +47,22 @@ export default function SignupCard() {
     price: 50,
     emailBuyer: "",
   });
+
   const [errors, setErrors] = useState({
     user: "",
     password: "",
     price: "",
     emailBuyer: "",
   });
+
+  const saveToDb = async (newdata) => {
+    try {
+      const docRef = await addDoc(collection(db, "accounts"), newdata);
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
 
   const validate = (key, value) => {
     let error = "";
@@ -60,19 +82,31 @@ export default function SignupCard() {
       }
     }
     if (key === "emailBuyer") {
-      if (/^\S+@\S+\.\S+$/.test(value)) {
+      if (!/^\S+@\S+\.\S+$/.test(value)) {
         error = "Email must be valid";
       }
+    }
+    if (value === "") {
+      error = "Required field";
     }
     return error;
   };
 
-  const handleChange = (key, value) => {
-    setErrors({ ...errors, [key]: validate(key, value) });
+  const handleSubmit = () => {
+    const { error, value } = schema.validate(data);
+    if (error) {
+      console.log(error);
+      return;
+    } else {
+      saveToDb(data);
+    }
+  };
+  const handleChange = async (key, value) => {
     setData((prevdata) => ({
       ...prevdata,
       [key]: value,
     }));
+    setErrors({ ...errors, [key]: validate(key, value) });
   };
 
   return (
@@ -159,6 +193,7 @@ export default function SignupCard() {
               <Input
                 id="emailBuyer"
                 type="emailBuyer"
+                value={data.emailBuyer}
                 onChange={(e) => handleChange("emailBuyer", e.target.value)}
               />
               <FormHelperText color={"red.400"}>
@@ -190,7 +225,12 @@ export default function SignupCard() {
               <EmailChangeInstructionsModal />
             </Text>
 
-            <Button mt={4} colorScheme="teal" type="submit">
+            <Button
+              mt={4}
+              colorScheme="teal"
+              type="submit"
+              onClick={handleSubmit}
+            >
               Save
             </Button>
           </Box>
