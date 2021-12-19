@@ -9,9 +9,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { useState, useEffect } from "react";
+import { db } from "../services/firebase";
 import { BsInstagram, BsCurrencyDollar, BsClock } from "react-icons/bs";
-import { FiServer } from "react-icons/fi";
-import { GoLocation } from "react-icons/go";
+import { collection, getDocs } from "firebase/firestore";
 
 function StatsCard(props) {
   const { title, stat, icon } = props;
@@ -47,6 +48,33 @@ function StatsCard(props) {
 }
 
 export default function BasicStatistics() {
+  const [accountsNr, setAccountsNr] = useState(0);
+  const [awaitingpaymentNr, setAwaitingpaymentNr] = useState(0);
+  const [salesTotal, setSalesTotal] = useState(0);
+
+  useEffect(() => {
+    getAccounts();
+  }, []);
+
+  const getAccounts = async () => {
+    const querySnapshot = await getDocs(collection(db, "accounts"));
+    const accountsDb = [];
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+      accountsDb.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    // setAccounts(accountsDb);
+    setAccountsNr(accountsDb.length);
+    setAwaitingpaymentNr(
+      accountsDb.filter((account) => account.sellerPaid === false).length
+    );
+    setSalesTotal(
+      accountsDb.reduce((acc, account) => acc + parseFloat(account.price), 0)
+    );
+  };
   return (
     <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
       <chakra.h1 textAlign={"left"} fontSize={"2xl"} py={1} fontWeight={"bold"}>
@@ -55,17 +83,17 @@ export default function BasicStatistics() {
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
         <StatsCard
           title={"Acounts"}
-          stat={"3"}
+          stat={accountsNr}
           icon={<BsInstagram size={"3em"} />}
         />
         <StatsCard
           title={"Sales"}
-          stat={"0"}
+          stat={salesTotal.toFixed(2)}
           icon={<BsCurrencyDollar size={"3em"} />}
         />
         <StatsCard
           title={"Awaiting payment"}
-          stat={"1"}
+          stat={awaitingpaymentNr}
           icon={<BsClock size={"3em"} />}
         />
       </SimpleGrid>
