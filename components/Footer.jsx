@@ -51,13 +51,16 @@ export default function SmallWithSocial() {
       >
         <Text>© 2020 Chakra Templates. All rights reserved</Text>
         <Stack direction={"row"} spacing={6}>
-          <SocialButton label={"Twitter"} href={"#"}>
+          <SocialButton
+            label={"Twitter"}
+            href={"https://twitter.com/insta_sell_shop"}
+          >
             <FaTwitter />
           </SocialButton>
-          <SocialButton label={"YouTube"} href={"#"}>
-            <FaYoutube />
-          </SocialButton>
-          <SocialButton label={"Instagram"} href={"#"}>
+          <SocialButton
+            label={"Instagram"}
+            href={"https://www.instagram.com/insta_sell_shop/"}
+          >
             <FaInstagram />
           </SocialButton>
         </Stack>
