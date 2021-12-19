@@ -12,6 +12,7 @@ import {
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { ReactNode } from "react";
+import Logo from "./Logo";
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -51,18 +52,9 @@ export default function SmallCentered() {
         justify={"center"}
         align={"center"}
       >
-        <Text
-          textAlign={useBreakpointValue({ base: "center", md: "left" })}
-          fontFamily={"heading"}
-          color={useColorModeValue("green.600", "white")}
-        >
-          <RiMoneyDollarCircleLine size={50} />
-        </Text>
-        {/* <Logo /> */}
+        <Logo />
         <Stack direction={"row"} spacing={6}>
           <Link href={"/"}>Home</Link>
-          {/* <Link href={"#"}>About</Link> */}
-          {/* <Link href={"#"}>Blog</Link> */}
           <Link href={"/how-it-works"}>How it works</Link>
           <Link href={"/faq"}>FAQ</Link>
           <Link href={"/contact"}>Contact</Link>
