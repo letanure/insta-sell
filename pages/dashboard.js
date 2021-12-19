@@ -5,6 +5,7 @@ import { Box } from "@chakra-ui/react";
 
 import Sidebar from "../components/Sidebar";
 import Statistics from "../components/Statistics";
+import ListAccounts from "../components/ListAccounts";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       {/* <Header /> */}
       <Sidebar>
         <Statistics />
+        <ListAccounts />
       </Sidebar>
     </Box>
   );
