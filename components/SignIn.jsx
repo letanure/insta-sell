@@ -50,22 +50,28 @@ export default function SimpleCard() {
                 justify={"space-between"}
               >
                 {/* <Checkbox>Remember me</Checkbox> */}
-                <Link color={"blue.400"} href="/forgot-password">
+                <Link color={"green.400"} href="/forgot-password">
                   Forgot password?
-                </Link>
-                <Link color={"blue.400"} href="/sign-up">
-                  Create an account
                 </Link>
               </Stack>
               <Button
                 bg={"green.400"}
                 color={"white"}
+                size="lg"
                 _hover={{
                   bg: "green.500",
                 }}
               >
                 Sign in
               </Button>
+            </Stack>
+            <Stack pt={6}>
+              <Text align={"center"}>
+                Not a uset yet?{" "}
+                <Link color={"green.400"} href="/sign-up">
+                  Create an account
+                </Link>
+              </Text>
             </Stack>
           </Stack>
         </Box>
