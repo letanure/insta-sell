@@ -58,7 +58,11 @@ export default function SmallCentered() {
           <Link href={"/how-it-works"}>How it works</Link>
           <Link href={"/faq"}>FAQ</Link>
           <Link href={"/contact"}>Contact</Link>
+        </Stack>
+
+        <Stack direction={"row"} spacing={6}>
           <Link href={"/privacy-policy"}>Privacy Policy</Link>
+          <Link href={"/terms-and-conditions"}>Terms and Conditions</Link>
         </Stack>
       </Container>
 
