@@ -11,6 +11,7 @@ import {
   useColorModeValue,
   createIcon,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function CallToActionWithAnnotation() {
   return (
@@ -36,7 +37,7 @@ export default function CallToActionWithAnnotation() {
           >
             Selling Instagram Accounts <br />
             <Text as={"span"} color={"green.400"}>
-              Made Simple & anonymous
+              Made simple & anonymous
             </Text>
           </Heading>
           <Text color={"gray.500"}>
@@ -57,18 +58,19 @@ export default function CallToActionWithAnnotation() {
             alignSelf={"center"}
             position={"relative"}
           >
-            <Button
-              colorScheme={"green"}
-              bg={"green.400"}
-              rounded={"full"}
-              px={6}
-              _hover={{
-                bg: "green.500",
-              }}
-              href="sign-in"
-            >
-              Get Started
-            </Button>
+            <Link href={"/sign-up"} passHref>
+              <Button
+                colorScheme={"green"}
+                bg={"green.400"}
+                rounded={"full"}
+                px={6}
+                _hover={{
+                  bg: "green.500",
+                }}
+              >
+                Get Started
+              </Button>
+            </Link>
             {/* <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
               Learn more
             </Button> */}
