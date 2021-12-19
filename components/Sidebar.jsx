@@ -16,21 +16,22 @@ import {
 } from "@chakra-ui/react";
 import {
   FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
+  FiUser,
   FiSettings,
   FiMenu,
+  FiLogOut,
+  FiHelpCircle,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 
 const LinkItems = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "Home", href: "/dashboard", icon: FiHome },
+  { name: "Accounts", href: "/accounts", icon: FiUser },
+  // { name: "Explore", href: '/dashboard', icon: FiCompass },
+  { name: "Settings", href: "/settings", icon: FiSettings },
+  { name: "Support", href: "/support", icon: FiHelpCircle },
+  { name: "Log out", href: "/log-out", icon: FiLogOut },
 ];
 
 export default function SimpleSidebar({ children }) {
@@ -66,7 +67,7 @@ export default function SimpleSidebar({ children }) {
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
-      bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue("white", "green.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       w={{ base: "full", md: 60 }}
@@ -81,7 +82,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} href={link.href}>
           {link.name}
         </NavItem>
       ))}
@@ -89,9 +90,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, href, ...rest }) => {
   return (
-    <Link href="#" style={{ textDecoration: "none" }}>
+    <Link href={href} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"
