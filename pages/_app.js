@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Stack, Skeleton } from "@chakra-ui/react";
 import "../services/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
@@ -23,10 +23,17 @@ function MyApp({ Component, pageProps }) {
 
   if (pageProps.protected && !user) {
     return (
-      <ChakraProvider>
-        <NoAccess />
-      </ChakraProvider>
+      <Stack>
+        <Skeleton height="20px" />
+        <Skeleton height="20px" />
+        <Skeleton height="20px" />
+      </Stack>
     );
+    // return (
+    //   <ChakraProvider>
+    //     <NoAccess />
+    //   </ChakraProvider>
+    // );
   }
 
   return (
