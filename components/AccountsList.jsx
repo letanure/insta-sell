@@ -81,18 +81,20 @@ export default function SignupCard() {
             </Stack>
           </Box>
           <Stack spacing={4}>
-            <Button
-              colorScheme={"green"}
-              bg={"green.400"}
-              rounded={"full"}
-              w={"50%"}
-              px={6}
-              _hover={{
-                bg: "green.500",
-              }}
-            >
-              Add new account
-            </Button>
+            <Link href="/accounts/add">
+              <Button
+                colorScheme={"green"}
+                bg={"green.400"}
+                rounded={"full"}
+                w={"50%"}
+                px={6}
+                _hover={{
+                  bg: "green.500",
+                }}
+              >
+                Add new account
+              </Button>
+            </Link>
           </Stack>
         </Stack>
       </SimpleGrid>

@@ -4,7 +4,6 @@ import styles from "../styles/Home.module.css";
 import { Box } from "@chakra-ui/react";
 
 import Sidebar from "../components/Sidebar";
-import ListAccounts from "../components/ListAccounts";
 
 export default function Home() {
   return (
