@@ -91,7 +91,9 @@ export default function SignupCard() {
                           {account.user}
                         </Link>
                       </Td>
-                      <Td isNumeric>$ {account.price}</Td>
+                      <Td isNumeric width={30}>
+                        ${account.price}
+                      </Td>
                       <Td>
                         {account.sellerTransferred ? (
                           "Yes"
