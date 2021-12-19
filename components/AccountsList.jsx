@@ -20,9 +20,12 @@ import {
 import { useState, useEffect } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { db } from "../services/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useContext } from "react";
+import { UserContext } from "./user";
 
 export default function SignupCard() {
+  const { uid } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
   const [accounts, setAccounts] = useState([]);
 
@@ -31,7 +34,11 @@ export default function SignupCard() {
   }, []);
 
   const getAccounts = async () => {
-    const querySnapshot = await getDocs(collection(db, "accounts"));
+    const citiesRef = collection(db, "accounts");
+    const q = query(citiesRef, where("uid", "==", uid));
+    const querySnapshot = await getDocs(q);
+
+    // const querySnapshot = await getDocs(collection(db, "accounts"));
     const accountsDb = [];
     querySnapshot.forEach((doc) => {
       accountsDb.push({

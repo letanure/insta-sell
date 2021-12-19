@@ -12,7 +12,9 @@ import { ReactNode } from "react";
 import { useState, useEffect } from "react";
 import { db } from "../services/firebase";
 import { BsInstagram, BsCurrencyDollar, BsClock } from "react-icons/bs";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useContext } from "react";
+import { UserContext } from "./user";
 
 function StatsCard(props) {
   const { title, stat, icon } = props;
@@ -51,13 +53,17 @@ export default function BasicStatistics() {
   const [accountsNr, setAccountsNr] = useState(0);
   const [awaitingpaymentNr, setAwaitingpaymentNr] = useState(0);
   const [salesTotal, setSalesTotal] = useState(0);
+  const { uid } = useContext(UserContext);
 
   useEffect(() => {
     getAccounts();
   }, []);
 
   const getAccounts = async () => {
-    const querySnapshot = await getDocs(collection(db, "accounts"));
+    const citiesRef = collection(db, "accounts");
+    const q = query(citiesRef, where("uid", "==", uid));
+    const querySnapshot = await getDocs(q);
+    // const querySnapshot = await getDocs(collection(db, "accounts"));
     const accountsDb = [];
     querySnapshot.forEach((doc) => {
       accountsDb.push({
