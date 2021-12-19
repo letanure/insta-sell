@@ -27,6 +27,8 @@ import Joi from "joi";
 import { db } from "../services/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { UserContext } from "./user";
 
 const schema = Joi.object({
   user: Joi.string().min(3).max(30).required(),
@@ -46,6 +48,8 @@ const schema = Joi.object({
 });
 
 export default function SignupCard() {
+  const { uid } = useContext(UserContext);
+  console.log("value", uid);
   const router = useRouter();
   const [data, setData] = useState({
     user: "",
@@ -67,7 +71,10 @@ export default function SignupCard() {
 
   const saveToDb = async (newdata) => {
     try {
-      const docRef = await addDoc(collection(db, "accounts"), newdata);
+      const docRef = await addDoc(collection(db, "accounts"), {
+        ...newdata,
+        uid,
+      });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
