@@ -53,6 +53,9 @@ export default function SimpleCard() {
                 <Link color={"blue.400"} href="/forgot-password">
                   Forgot password?
                 </Link>
+                <Link color={"blue.400"} href="/sign-up">
+                  Create an account
+                </Link>
               </Stack>
               <Button
                 bg={"green.400"}
