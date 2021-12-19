@@ -15,6 +15,7 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
+  Flex,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -31,84 +32,104 @@ export default function CallToActionWithAnnotation() {
         onSwiper={(swiper) => console.log(swiper)}
       >
         <SwiperSlide>
-          <Image
-            src="/1.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/1.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/2.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/2.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/3.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/3.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/4.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/4.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/5.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/5.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/6.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/6.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/7.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/7.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/8.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/8.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/9.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/9.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/10.jpeg"
-            alt="Picture of the author"
-            width={370}
-            height={800}
-          />
+          <Flex align="center" justify="center">
+            <Image
+              src="/10.jpeg"
+              alt="Picture of the author"
+              width={277}
+              height={600}
+            />
+          </Flex>
         </SwiperSlide>
       </Swiper>
     </>
