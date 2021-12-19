@@ -16,7 +16,7 @@ export default function NotFound() {
         Page Not Found
       </Text>
       <Text color={"gray.500"} mb={6}>
-        The page you're looking for does not seem to exist
+        The page you&#39;re looking for does not seem to exist
       </Text>
 
       <Link href="/">
