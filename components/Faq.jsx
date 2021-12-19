@@ -49,7 +49,7 @@ export default function SmallWithSocial() {
     >
       <Container
         as={Stack}
-        maxW={"12xl"}
+        w={"100%"}
         py={10}
         direction={{ base: "column", md: "column" }}
         spacing={8}
