@@ -11,6 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 import Joi from "joi";
 import { useRouter } from "next/router";
 
@@ -60,16 +62,12 @@ export default function ForgotPasswordForm() {
     return error;
   };
 
-  function sendEmail() {
+  function sendEmail(email) {
     sendPasswordResetEmail(auth, email)
-      .then(() => {
-        // Password reset email sent!
-        // ..
-      })
+      .then(() => {})
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   }
 
@@ -84,6 +82,7 @@ export default function ForgotPasswordForm() {
       return;
     } else {
       saveToDb(data);
+      sendEmail(data.email);
       router.push("/sign-in");
     }
   };
