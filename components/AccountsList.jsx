@@ -106,14 +106,19 @@ export default function SignupCard() {
                       </Td>
                       <Td>
                         {account.sellerTransferred ? (
-                          "Yes"
+                          <Tag colorScheme="green" size="sm" mb={1}>
+                            Login confirmed
+                          </Tag>
                         ) : (
                           <Tag colorScheme="yellow" size="sm" mb={1}>
                             Awaiting login confirmation
                           </Tag>
                         )}
+                        <br />
                         {account.sellerEmailConfirmed ? (
-                          "Yes"
+                          <Tag colorScheme="green" size="sm">
+                            Email confirmed
+                          </Tag>
                         ) : (
                           <Tag colorScheme="yellow" size="sm">
                             Awaiting email transfer
