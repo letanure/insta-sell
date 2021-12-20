@@ -12,6 +12,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Select,
   FormHelperText,
 } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
@@ -35,6 +36,7 @@ import { UserContext } from "./user";
 const schema = Joi.object({
   paypal: Joi.string().min(6).max(200).required(),
   crypto: Joi.string().min(6).max(200).required(),
+  preferred: Joi.any(),
   // email: Joi.string()
   //   .email({
   //     tlds: {
@@ -51,12 +53,14 @@ export default function SignupCard() {
   const [data, setData] = useState({
     paypal: "",
     crypto: "",
+    preferred: "pp",
     // email: email,
   });
 
   const [errors, setErrors] = useState({
     paypal: "",
     crypto: "",
+    preferred: "",
     // email: "",
   });
 
@@ -81,10 +85,9 @@ export default function SignupCard() {
         ...doc.data(),
       });
     });
-    console.log(allSettings);
     if (allSettings.length > 0) {
-      const { paypal, crypto } = allSettings[0];
-      setData({ paypal, crypto });
+      const { paypal, crypto, preferred } = allSettings[0];
+      setData({ paypal, crypto, preferred });
     }
   };
 
@@ -95,7 +98,6 @@ export default function SignupCard() {
         uid,
         createdAt: Timestamp.now(),
       });
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -126,7 +128,6 @@ export default function SignupCard() {
 
   const handleSubmit = () => {
     const { error, value } = schema.validate(data);
-    console.log(error);
     if (error) {
       const listErrors = {};
       for (let key in data) {
@@ -204,6 +205,22 @@ export default function SignupCard() {
               </FormHelperText>
               <FormHelperText>
                 The account that the money will be sent to
+              </FormHelperText>
+            </FormControl>
+
+            <FormControl isRequired marginBottom={4}>
+              <FormLabel htmlFor="preferred">
+                Preferred payment method
+              </FormLabel>
+              <Select
+                value={data.preferred}
+                onChange={(e) => handleChange("preferred", e.target.value)}
+              >
+                <option value="pp">PayPal</option>
+                <option value="btc">Bitcoin</option>
+              </Select>
+              <FormHelperText color={"red.400"}>
+                {errors.preferred ? errors.preferred : ""}
               </FormHelperText>
             </FormControl>
 
