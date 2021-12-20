@@ -139,14 +139,16 @@ export default function SignupCard() {
                         )}
                       </Td>
                       <Td>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          leftIcon={<ViewIcon />}
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          View
-                        </Button>
+                        <Link href={`/accounts/${account.id}`}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            leftIcon={<ViewIcon />}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            View
+                          </Button>
+                        </Link>
                       </Td>
                     </Tr>
                   ))}
