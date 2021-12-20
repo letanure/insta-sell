@@ -49,7 +49,6 @@ const schema = Joi.object({
 
 export default function SignupCard() {
   const { uid } = useContext(UserContext);
-  console.log("value", uid);
   const router = useRouter();
   const [data, setData] = useState({
     user: "",
