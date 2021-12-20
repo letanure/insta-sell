@@ -25,7 +25,14 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import EmailChangeInstructionsModal from "./EmailChangeInstructionsModal";
 import Joi from "joi";
 import { db } from "../services/firebase";
-import { collection, addDoc, Timestamp, getDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  getDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { UserContext } from "./user";
@@ -76,6 +83,10 @@ export default function SignupCard() {
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
       const docData = docSnap.data();
+      if (docData.active === false) {
+        router.push("/accounts");
+        return;
+      }
       setData({
         user: docData.user,
         password: docData.password,
@@ -88,6 +99,7 @@ export default function SignupCard() {
       });
     } else {
       console.log("No such document!");
+      router.push("/accounts");
     }
   };
 
@@ -156,6 +168,15 @@ export default function SignupCard() {
       [key]: value,
     }));
     setErrors({ ...errors, [key]: validate(key, value) });
+  };
+
+  const handleDelete = async (key, value) => {
+    const docRef = doc(db, "accounts", id);
+
+    await updateDoc(docRef, {
+      active: false,
+    });
+    router.push("/accounts");
   };
 
   return (
@@ -256,34 +277,50 @@ export default function SignupCard() {
               </FormHelperText>
             </FormControl>
 
-            <Text fontSize="lg" marginTop={5} marginBottom={5}>
-              Dont forget to confirm the email change on Instagram and foward
-              the confirmation email to
-            </Text>
-            <>
-              <Flex align={"center"}>
-                <CopyToClipboard text="seller-4567@insta-sell.shop">
-                  <Text bg={"green.200"} p={1} mr={3} cursor={"pointer"}>
-                    seller-4567@insta-sell.shop
-                  </Text>
-                </CopyToClipboard>
-                <Text fontSize="sm" marginTop={5} marginBottom={5}>
-                  click to copy
+            {!data.sellerEmailConfirmed && (
+              <>
+                <Text fontSize="lg" marginTop={5} marginBottom={5}>
+                  Dont forget to confirm the email change on Instagram and
+                  foward the confirmation email to
                 </Text>
-              </Flex>
-            </>
-            <Text fontSize="lg" marginTop={5} marginBottom={5}>
-              <EmailChangeInstructionsModal />
-            </Text>
+                <Flex align={"center"}>
+                  <CopyToClipboard text="seller-4567@insta-sell.shop">
+                    <Text bg={"green.200"} p={1} mr={3} cursor={"pointer"}>
+                      seller-4567@insta-sell.shop
+                    </Text>
+                  </CopyToClipboard>
+                  <Text fontSize="sm" marginTop={5} marginBottom={5}>
+                    click to copy
+                  </Text>
+                </Flex>
+                <Text fontSize="lg" marginTop={5} marginBottom={5}>
+                  <EmailChangeInstructionsModal />
+                </Text>
+              </>
+            )}
 
-            {/* <Button
+            <Button
               mt={4}
-              colorScheme="teal"
-              type="submit"
-              onClick={handleSubmit}
+              colorScheme="red"
+              type="button"
+              onClick={handleDelete}
             >
-              Save
-            </Button> */}
+              Delete
+            </Button>
+
+            <Link href="/accounts/" ml={5}>
+              <Button
+                mt={4}
+                colorScheme={"green"}
+                bg={"green.400"}
+                px={6}
+                _hover={{
+                  bg: "green.500",
+                }}
+              >
+                Back to the list
+              </Button>
+            </Link>
           </Box>
         </Stack>
       </SimpleGrid>
