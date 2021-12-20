@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/no-children-prop */
 import {
   Container,
-  Flex,
   Box,
   Heading,
   Text,
@@ -17,18 +17,106 @@ import {
   InputGroup,
   InputLeftElement,
   Textarea,
+  FormHelperText,
 } from "@chakra-ui/react";
-import {
-  MdPhone,
-  MdEmail,
-  MdLocationOn,
-  MdFacebook,
-  MdOutlineEmail,
-} from "react-icons/md";
+import { MdEmail, MdOutlineEmail } from "react-icons/md";
 import { BsInstagram, BsDiscord, BsPerson, BsTwitter } from "react-icons/bs";
 import Link from "next/link";
+import Joi from "joi";
+import { useState } from "react";
+import { db } from "../services/firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { useEffect, useContext } from "react";
+import { UserContext } from "./user";
+
+const schema = Joi.object({
+  name: Joi.string().min(3).max(30).required(),
+  email: Joi.string()
+    .email({
+      tlds: {
+        allow: false,
+      },
+    })
+    .required(),
+  message: Joi.string().min(20).max(500).required(),
+});
 
 export default function contact() {
+  const user = useContext(UserContext);
+  let uid = null;
+  if (user) {
+    uid = user.uid;
+  }
+
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const saveToDb = async (newdata) => {
+    try {
+      const docRef = await addDoc(collection(db, "messages"), {
+        ...newdata,
+        uid,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  const validate = (key, value) => {
+    let error = "";
+    if (key === "name") {
+      if (value.length < 3) {
+        error = "Name must be at least 3 characters long";
+      }
+    }
+    if (key === "message") {
+      if (value.length < 20) {
+        error = "Message must be at least 20 characters long";
+      }
+    }
+    if (key === "email") {
+      if (!/^\S+@\S+\.\S+$/.test(value)) {
+        error = "Email must be valid";
+      }
+    }
+    if (value === "") {
+      error = "Required field";
+    }
+    return error;
+  };
+
+  const handleSubmit = () => {
+    const { error, value } = schema.validate(data);
+    if (error) {
+      const listErrors = {};
+      for (let key in data) {
+        listErrors[key] = validate(key, data[key]);
+      }
+      setErrors(listErrors);
+      return;
+    } else {
+      saveToDb(data);
+      // router.push("/accounts");
+    }
+  };
+
+  const handleChange = async (key, value) => {
+    setData((prevdata) => ({
+      ...prevdata,
+      [key]: value,
+    }));
+    setErrors({ ...errors, [key]: validate(key, value) });
+  };
   return (
     <Container
       bg="gray.200"
@@ -106,27 +194,47 @@ export default function contact() {
                 <Box bg="white" borderRadius="lg">
                   <Box m={8} color="gray.800">
                     <VStack spacing={5}>
-                      <FormControl id="name">
+                      <FormControl isRequired id="name">
                         <FormLabel>Your Name</FormLabel>
                         <InputGroup borderColor="gray.400">
                           <InputLeftElement
                             pointerEvents="none"
                             children={<BsPerson color="gray.800" />}
                           />
-                          <Input type="text" size="md" />
+                          <Input
+                            type="text"
+                            size="md"
+                            onChange={(e) =>
+                              handleChange("name", e.target.value)
+                            }
+                          />
                         </InputGroup>
+                        <FormHelperText color={"red.400"}>
+                          {errors.name ? errors.name : ""}
+                        </FormHelperText>
                       </FormControl>
-                      <FormControl id="name">
+
+                      <FormControl isRequired id="email">
                         <FormLabel>Mail</FormLabel>
                         <InputGroup borderColor="gray.400">
                           <InputLeftElement
                             pointerEvents="none"
                             children={<MdOutlineEmail color="gray.800" />}
                           />
-                          <Input type="text" size="md" />
+                          <Input
+                            type="email"
+                            size="md"
+                            onChange={(e) =>
+                              handleChange("email", e.target.value)
+                            }
+                          />
                         </InputGroup>
+                        <FormHelperText color={"red.400"}>
+                          {errors.email ? errors.email : ""}
+                        </FormHelperText>
                       </FormControl>
-                      <FormControl id="name">
+
+                      <FormControl isRequired id="message">
                         <FormLabel>Message</FormLabel>
                         <Textarea
                           borderColor="gray.400"
@@ -134,14 +242,22 @@ export default function contact() {
                             borderRadius: "gray.300",
                           }}
                           placeholder="message"
+                          onChange={(e) =>
+                            handleChange("message", e.target.value)
+                          }
                         />
+                        <FormHelperText color={"red.400"}>
+                          {errors.message ? errors.message : ""}
+                        </FormHelperText>
                       </FormControl>
+
                       <FormControl id="name" float="right">
                         <Button
                           variant="solid"
                           bg="green.400"
                           color="white"
                           _hover={{}}
+                          onClick={handleSubmit}
                         >
                           Send Message
                         </Button>
