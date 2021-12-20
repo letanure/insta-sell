@@ -74,6 +74,7 @@ export default function SignupCard() {
         ...newdata,
         uid,
         createdAt: Timestamp.now(),
+        active: true,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

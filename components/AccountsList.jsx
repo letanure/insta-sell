@@ -35,7 +35,11 @@ export default function SignupCard() {
 
   const getAccounts = async () => {
     const citiesRef = collection(db, "accounts");
-    const q = query(citiesRef, where("uid", "==", uid));
+    const q = query(
+      citiesRef,
+      where("uid", "==", uid),
+      where("active", "==", true)
+    );
     const querySnapshot = await getDocs(q);
 
     // const querySnapshot = await getDocs(collection(db, "accounts"));
