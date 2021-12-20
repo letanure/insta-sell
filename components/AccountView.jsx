@@ -15,6 +15,7 @@ import {
   Button,
   Link,
   Code,
+  Tag,
   FormControl,
   FormLabel,
   Input,
@@ -196,6 +197,67 @@ export default function SignupCard() {
             w={"100%"}
             overflowX={"scroll"}
           >
+            <SimpleGrid columns={{ base: 1, md: 1 }} spacing={2} mb={3}>
+              <Box>
+                <Text fontSize={"md"} fontWeight={600}>
+                  Status Login
+                </Text>
+              </Box>
+              <Box border={"1px solid #e2e8f0"} padding={2} borderRadius={6}>
+                {data.sellerTransferred ? (
+                  <Tag colorScheme="green" size="sm" mb={1}>
+                    Login confirmed
+                  </Tag>
+                ) : (
+                  <Tag colorScheme="yellow" size="sm" mb={1}>
+                    Awaiting login confirmation
+                  </Tag>
+                )}
+                <br />
+                {data.sellerEmailConfirmed ? (
+                  <Tag colorScheme="green" size="sm">
+                    Email confirmed
+                  </Tag>
+                ) : (
+                  <Tag colorScheme="yellow" size="sm">
+                    Awaiting email transfer
+                  </Tag>
+                )}
+              </Box>
+              <Box>
+                <Text fontSize={"md"} fontWeight={600}>
+                  Paid by the buyer?
+                </Text>
+              </Box>
+              <Box border={"1px solid #e2e8f0"} padding={2} borderRadius={6}>
+                {data.buyerPaid ? (
+                  <Tag colorScheme="green" size="sm" mb={1}>
+                    Yes
+                  </Tag>
+                ) : (
+                  <Tag colorScheme="red" size="sm" mb={1}>
+                    No
+                  </Tag>
+                )}
+              </Box>
+              <Box>
+                <Text fontSize={"md"} fontWeight={600}>
+                  Seller paid?
+                </Text>
+              </Box>
+              <Box border={"1px solid #e2e8f0"} padding={2} borderRadius={6}>
+                {data.sellerPaid ? (
+                  <Tag colorScheme="green" size="sm" mb={1}>
+                    Yes
+                  </Tag>
+                ) : (
+                  <Tag colorScheme="red" size="sm" mb={1}>
+                    No
+                  </Tag>
+                )}
+              </Box>
+            </SimpleGrid>
+
             <FormControl isReadOnly isRequired marginBottom={4}>
               <FormLabel htmlFor="user">User @</FormLabel>
               <Input
