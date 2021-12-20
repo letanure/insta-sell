@@ -232,19 +232,19 @@ export default function SignupCard() {
             <Text fontSize="lg" marginTop={5} marginBottom={5}>
               Dont forget to confirm the email change on Instagram and foward
               the confirmation email to
-              <>
-                <Flex align={"center"}>
-                  <CopyToClipboard text="seller-4567@insta-sell.shop">
-                    <Text bg={"green.200"} p={1} mr={3} cursor={"pointer"}>
-                      seller-4567@insta-sell.shop
-                    </Text>
-                  </CopyToClipboard>
-                  <Text fontSize="sm" marginTop={5} marginBottom={5}>
-                    click to copy
-                  </Text>
-                </Flex>
-              </>
             </Text>
+            <>
+              <Flex align={"center"}>
+                <CopyToClipboard text="seller-4567@insta-sell.shop">
+                  <Text bg={"green.200"} p={1} mr={3} cursor={"pointer"}>
+                    seller-4567@insta-sell.shop
+                  </Text>
+                </CopyToClipboard>
+                <Text fontSize="sm" marginTop={5} marginBottom={5}>
+                  click to copy
+                </Text>
+              </Flex>
+            </>
             <Text fontSize="lg" marginTop={5} marginBottom={5}>
               <EmailChangeInstructionsModal />
             </Text>
