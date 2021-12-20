@@ -110,7 +110,6 @@ export default function SignupCard() {
 
   const handleSubmit = () => {
     const { error, value } = schema.validate(data);
-    console.log(error, errors);
     if (error) {
       const listErrors = {};
       for (let key in data) {

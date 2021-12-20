@@ -12,11 +12,10 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("signed in", user);
         const uid = user.uid;
         setUser(user);
       } else {
-        console.log("NOT signed in");
+        console.log("NSI");
       }
     });
   }, []);

@@ -141,9 +141,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        <Logo />
-      </Text>
+      <Logo />
     </Flex>
   );
 };
