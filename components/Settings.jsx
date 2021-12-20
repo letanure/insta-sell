@@ -172,7 +172,7 @@ export default function SignupCard() {
             {showSuccess && (
               <Alert status="success">
                 <AlertIcon />
-                Message sent with success!
+                Save with success!
               </Alert>
             )}
             <FormControl isRequired marginBottom={4}>
