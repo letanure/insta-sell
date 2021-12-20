@@ -27,7 +27,7 @@ import Link from "next/link";
 import Joi from "joi";
 import { useState } from "react";
 import { db } from "../services/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useEffect, useContext } from "react";
 import { UserContext } from "./user";
 
@@ -69,6 +69,7 @@ export default function contact() {
       const docRef = await addDoc(collection(db, "messages"), {
         ...newdata,
         uid,
+        createdAt: Timestamp.now(),
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
