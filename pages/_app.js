@@ -5,10 +5,34 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { UserContext } from "../components/user";
 import NoAccess from "../components/NoAccess";
+import { db } from "../services/firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const auth = getAuth();
+
+  const saveToDb = async (newdata) => {
+    try {
+      const docRef = await addDoc(collection(db, "ips"), {
+        ...newdata,
+        createdAt: Timestamp.now(),
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  useEffect(() => {
+    fetch("http://ip-api.com/json").then((res) =>
+      res.json().then((data) => {
+        console.log(data);
+        setUser(data);
+        saveToDb(data);
+      })
+    );
+  }, []);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
