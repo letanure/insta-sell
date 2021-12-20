@@ -25,7 +25,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import EmailChangeInstructionsModal from "./EmailChangeInstructionsModal";
 import Joi from "joi";
 import { db } from "../services/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { UserContext } from "./user";
@@ -73,6 +73,7 @@ export default function SignupCard() {
       const docRef = await addDoc(collection(db, "accounts"), {
         ...newdata,
         uid,
+        createdAt: Timestamp.now(),
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
