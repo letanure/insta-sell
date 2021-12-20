@@ -46,9 +46,6 @@ const schema = Joi.object({
 export default function contact() {
   const user = useContext(UserContext);
   let uid = null;
-  if (user) {
-    uid = user.uid;
-  }
 
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -63,6 +60,12 @@ export default function contact() {
     email: "",
     message: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setData({ ...data, email: user.email });
+    }
+  }, [user]);
 
   const saveToDb = async (newdata) => {
     try {
