@@ -76,7 +76,6 @@ export default function SignupCard() {
         createdAt: Timestamp.now(),
         active: true,
       });
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }

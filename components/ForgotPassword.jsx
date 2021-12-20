@@ -43,7 +43,6 @@ export default function ForgotPasswordForm() {
       const docRef = await addDoc(collection(db, "ForgotPasswordForm"), {
         ...newdata,
       });
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }

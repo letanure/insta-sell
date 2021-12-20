@@ -74,7 +74,6 @@ export default function contact() {
         uid,
         createdAt: Timestamp.now(),
       });
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }

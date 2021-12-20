@@ -82,7 +82,6 @@ export default function SignupCard() {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       const docData = docSnap.data();
       if (docData.active === false) {
         router.push("/accounts");
@@ -115,7 +114,6 @@ export default function SignupCard() {
         uid,
         createdAt: Timestamp.now(),
       });
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
