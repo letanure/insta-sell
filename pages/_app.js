@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   useEffect(() => {
-    fetch("http://ip-api.com/json").then((res) =>
+    fetch("https://ipapi.co/json/").then((res) =>
       res.json().then((data) => {
         console.log(data);
         setUser(data);
