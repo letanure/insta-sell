@@ -9,6 +9,8 @@ import {
   Button,
   VStack,
   HStack,
+  Alert,
+  AlertIcon,
   Wrap,
   WrapItem,
   FormControl,
@@ -47,6 +49,8 @@ export default function contact() {
   if (user) {
     uid = user.uid;
   }
+
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -106,6 +110,15 @@ export default function contact() {
       return;
     } else {
       saveToDb(data);
+      setShowSuccess(true);
+      setData({
+        name: "",
+        email: "",
+        message: "",
+      });
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
       // router.push("/accounts");
     }
   };
@@ -194,6 +207,13 @@ export default function contact() {
                 <Box bg="white" borderRadius="lg">
                   <Box m={8} color="gray.800">
                     <VStack spacing={5}>
+                      {showSuccess && (
+                        <Alert status="success">
+                          <AlertIcon />
+                          Message sent with success!
+                        </Alert>
+                      )}
+
                       <FormControl isRequired id="name">
                         <FormLabel>Your Name</FormLabel>
                         <InputGroup borderColor="gray.400">
@@ -204,6 +224,7 @@ export default function contact() {
                           <Input
                             type="text"
                             size="md"
+                            value={data.name}
                             onChange={(e) =>
                               handleChange("name", e.target.value)
                             }
@@ -224,6 +245,7 @@ export default function contact() {
                           <Input
                             type="email"
                             size="md"
+                            value={data.email}
                             onChange={(e) =>
                               handleChange("email", e.target.value)
                             }
@@ -241,6 +263,7 @@ export default function contact() {
                           _hover={{
                             borderRadius: "gray.300",
                           }}
+                          value={data.message}
                           placeholder="message"
                           onChange={(e) =>
                             handleChange("message", e.target.value)
