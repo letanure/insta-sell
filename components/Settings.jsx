@@ -19,21 +19,29 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import EmailChangeInstructionsModal from "./EmailChangeInstructionsModal";
 import Joi from "joi";
 import { db } from "../services/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  Timestamp,
+  orderBy,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { UserContext } from "./user";
 
 const schema = Joi.object({
-  paypal: Joi.string().min(3).max(30).required(),
-  crypto: Joi.string().min(3).max(30).required(),
-  email: Joi.string()
-    .email({
-      tlds: {
-        allow: false,
-      },
-    })
-    .required(),
+  paypal: Joi.string().min(6).max(200).required(),
+  crypto: Joi.string().min(6).max(200).required(),
+  // email: Joi.string()
+  //   .email({
+  //     tlds: {
+  //       allow: false,
+  //     },
+  //   })
+  //   .required(),
 });
 
 export default function SignupCard() {
@@ -43,20 +51,49 @@ export default function SignupCard() {
   const [data, setData] = useState({
     paypal: "",
     crypto: "",
-    email: email,
+    // email: email,
   });
 
   const [errors, setErrors] = useState({
     paypal: "",
     crypto: "",
-    email: "",
+    // email: "",
   });
+
+  useEffect(() => {
+    getSettings();
+  }, []);
+
+  const getSettings = async () => {
+    const citiesRef = collection(db, "settings");
+    const q = query(
+      citiesRef,
+      where("uid", "==", uid),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q);
+
+    // const querySnapshot = await getDocs(collection(db, "accounts"));
+    const allSettings = [];
+    querySnapshot.forEach((doc) => {
+      allSettings.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    console.log(allSettings);
+    if (allSettings.length > 0) {
+      const { paypal, crypto } = allSettings[0];
+      setData({ paypal, crypto });
+    }
+  };
 
   const saveToDb = async (newdata) => {
     try {
       const docRef = await addDoc(collection(db, "settings"), {
         ...newdata,
         uid,
+        createdAt: Timestamp.now(),
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -67,8 +104,8 @@ export default function SignupCard() {
   const validate = (key, value) => {
     let error = "";
     if (key === "paypal") {
-      if (value.length < 5) {
-        error = "Paypal must be at least 3 characters long";
+      if (value.length < 6) {
+        error = "Paypal must be at least 6 characters long";
       }
     }
     if (key === "crypto") {
@@ -76,11 +113,11 @@ export default function SignupCard() {
         error = "Password must be at least 6 characters long";
       }
     }
-    if (key === "email") {
-      if (!/^\S+@\S+\.\S+$/.test(value)) {
-        error = "Email must be valid";
-      }
-    }
+    // if (key === "email") {
+    //   if (!/^\S+@\S+\.\S+$/.test(value)) {
+    //     error = "Email must be valid";
+    //   }
+    // }
     if (value === "") {
       error = "Required field";
     }
@@ -89,6 +126,7 @@ export default function SignupCard() {
 
   const handleSubmit = () => {
     const { error, value } = schema.validate(data);
+    console.log(error);
     if (error) {
       const listErrors = {};
       for (let key in data) {
@@ -169,7 +207,7 @@ export default function SignupCard() {
               </FormHelperText>
             </FormControl>
 
-            <FormControl isRequired marginBottom={4} isDisabled>
+            {/* <FormControl isRequired marginBottom={4} isDisabled>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
@@ -181,7 +219,7 @@ export default function SignupCard() {
                 {errors.email ? errors.emailBuyer : ""}
               </FormHelperText>
               <FormHelperText>Your email</FormHelperText>
-            </FormControl>
+            </FormControl> */}
 
             <Button
               mt={4}
