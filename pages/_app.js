@@ -72,6 +72,12 @@ function MyApp({ Component, pageProps }) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          <meta property="og:title" content="InstaSell" />
+          <meta
+            property="og:description"
+            content="Selling Instagram accounts simple & anonymous"
+          />
+          <meta property="og:image" content="/mstile-150x150.png" />
         </Head>
         <Component {...pageProps} />
       </ChakraProvider>
