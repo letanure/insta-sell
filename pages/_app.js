@@ -7,6 +7,7 @@ import { UserContext } from "../components/user";
 import NoAccess from "../components/NoAccess";
 import { db } from "../services/firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -62,6 +63,16 @@ function MyApp({ Component, pageProps }) {
   return (
     <UserContext.Provider value={user}>
       <ChakraProvider>
+        <Head>
+          <meta charset="UTF-8" />
+          <title>
+            InstaSell - Selling Instagram accounts simple & anonymous
+          </title>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+        </Head>
         <Component {...pageProps} />
       </ChakraProvider>
     </UserContext.Provider>
